@@ -57,6 +57,7 @@ void* draw(void* carNum){
 
 }// end draw
 int main(){
+	int rc;
 
 	pthread_t AIThreads[5];
 	for (int i = 2; i <=5; i++ ){
