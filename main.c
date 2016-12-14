@@ -36,9 +36,9 @@ void drawLane(int position, int lane){
 void* draw(void* carNum){
 	int* carPos = (int*)carNum;
 	int notWinner = 0;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 5; i++)//check if the positon is above 40
 		int laneWinner = i+1;
-		if (carPos[i] == 40) {
+		if (carPos[i] >= 40) {
 			notWinner = 1;
 			break;
 		}
