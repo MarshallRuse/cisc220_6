@@ -36,14 +36,13 @@ void drawLane(int position, int lane){
 void* draw(void* carNum){
 	int* carPos = (int*)carNum;
 	int notWinner = 0;
-	 do{
-		for (int i = 0; i < 5; i++)
-			int laneWinner = i+1;
-			if (carPos[i] == 40) 
-			{
-				notWinner = 1;
-				break;
-			}
+	for (int i = 0; i < 5; i++)
+		int laneWinner = i+1;
+		if (carPos[i] == 40) {
+			notWinner = 1;
+			break;
+		}
+	 while(notWinner){
 		usleep(20 * 1000);
 		system("clear"); //clear screen
 		printf("Welcome to CISC220 Racing Arena \nHit Enter to move forward");
@@ -52,13 +51,9 @@ void* draw(void* carNum){
 			drawLane(carPos[i], i+1);
 		if (notWinner == 1)
 			printf("Player in lane %d WINS\n", laneWinner);
-	} while(notWinner) ;
+	} ;
 	
 	pthread_exit(NULL);
-}
-	
-
-
 
 }// end draw
 int main(){
