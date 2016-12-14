@@ -22,13 +22,14 @@ void* raceCar(void* carNum){
 }//end raceCar
 
 
-void* draw(void* carNum){
-
-
-	while (winState){
-
-
-	}
+void* draw(int position, int lane){
+	for (int i = 0; i < position; i++)
+		printf("~");
+	printf("|->");
+	
+	for (int i = 0; i < 40 - position; i++)
+		printf(" ");
+	printf("#LANE $d #\n", lane);
 
 }//end draw
 
