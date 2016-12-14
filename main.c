@@ -58,9 +58,7 @@ void* draw(void* carNum){
 }// end draw
 int main(){
 
-	printf("Welcome to CISC220 Racing Arena \nHit Enter to move forward");
-
-	pthread_t AIThreads[4];
+	pthread_t AIThreads[5];
 	for (int i = 2; i <=5; i++ ){
 
 		rc = pthread_create(AIThreads + i, NULL, raceCar, (void*) i); //returns 0 on success
