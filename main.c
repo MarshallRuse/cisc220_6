@@ -35,14 +35,14 @@ void drawLane(int position, int lane){
 
 void* draw(void* carNum){
 	int* carPos = (int*)carNum;
-	int notWinner = 0;
+	int notWinner;
 	for (int i = 0; i < 5; i++)//check if the positon is above 40
 		int laneWinner = i+1;
 		if (carPos[i] >= 40) {
 			notWinner = 1;
 			break;
 		}
-	 while(notWinner){
+	 while(!notWinner){
 		usleep(20 * 1000);
 		system("clear"); //clear screen
 		printf("Welcome to CISC220 Racing Arena \nHit Enter to move forward");
