@@ -22,7 +22,7 @@ void* raceCar(void* carNum){
 }//end raceCar
 
 
-void* draw(int position, int lane){
+void drawLane(int position, int lane){
 	for (int i = 0; i < position; i++)
 		printf("~");
 	printf("|->");
@@ -31,9 +31,36 @@ void* draw(int position, int lane){
 		printf(" ");
 	printf("#LANE $d #\n", lane);
 
-}//end draw
+}//end drawLane
+
+void* draw(void* carNum){
+	int* carPos = (int*)carNum;
+	int notWinner = 0;
+	 do{
+		for (int i = 0; i < 5; i++)
+			int laneWinner = i+1;
+			if (carPos[i] == 40) 
+			{
+				notWinner = 1;
+				break;
+			}
+		usleep(20 * 1000);
+		system("clear"); //clear screen
+		printf("Welcome to CISC220 Racing Arena \nHit Enter to move forward");
+		
+		for (int i = 0; i < 5; i++)
+			drawLane(carPos[i], i+1);
+		if (notWinner == 1)
+			printf("Player in lane %d WINS\n", laneWinner);
+	} while(notWinner) ;
+	
+	pthread_exit(NULL);
+}
+	
 
 
+
+}// end draw
 int main(){
 
 	printf("Welcome to CISC220 Racing Arena \nHit Enter to move forward");
