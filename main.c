@@ -1,3 +1,6 @@
+/* *Katherine Le 10188031
+ *Marshall Ruse 10066247 
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
