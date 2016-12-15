@@ -1,6 +1,3 @@
-/* *Katherine Le 10188031
- *Marshall Ruse 10066247 
- */
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -37,13 +34,15 @@ void* userCar(void* carPosition){
 }//end userCar
 
 void drawLane(int position, int lane){
-	for (int i = 0; i < position; i++)
+	ffor (i=0;i<position;i++){
 		printf("~");
+	}
 	printf("|->");
-	
-	for (int i = 0; i < 40 - position; i++)
+	for (i = (position+3); i<(40+3); i++){
 		printf(" ");
-	printf("#LANE $d #\n", lane);
+	}
+	printf("# Lane %d #\n",lane);
+	return;
 
 }//end drawLane
 
@@ -57,37 +56,39 @@ void* draw(void* carNum){
 			break;
 		}
 	 while(!notWinner){
-		usleep(20 * 1000);
+		
 		system("clear"); //clear screen
 		printf("Welcome to CISC220 Racing Arena \nHit Enter to move forward");
 		
-		for (int i = 0; i < 5; i++)
-			drawLane(carPos[i], i+1);
-		if (notWinner == 1)
+		for (int i = 0; i < 5; i++){
+			
+			int lane = i+1;
+			pos = position[i];
+			drawLane(pos,lane);
+		
 			printf("Player in lane %d WINS\n", laneWinner);
-	} ;
+	}
+		usleep(20*1000);}
 	
 	pthread_exit(NULL);
 
 }// end draw
 int main(){
-	
-	pthread_t threads[5];
 	int rc;
-	rc = pthread_create(threads+0,NULL,draw,(void *) 0);
 
-	for(int i = 1; i <=6; i++) {
-			rc = pthread_create(threads+i,NULL,raceCar,(void *) i);
-		}
-			rc= pthread_create(threads+i,NULL,userCar,(void *) i );
-			
-	if (rc) {
-		printf("ERROR; return code from pthread_create() is %d\n", rc);
-		exit(-1);
+	pthread_t AIThreads[5];
+	for (int i = 2; i <=5; i++ ){
+
+		rc = pthread_create(AIThreads + i, NULL, raceCar, (void*) i); //returns 0 on success
+		if (rc){ //if not zero
+					printf("ERROR; return code from pthread_create() is %d\n", rc);
+					exit(-1);
+				}
 	}
 	/* wait for all threads to complete */
 	for (int i = 0; i <= 5; i++){
 		pthread_join(AIThreads[i], NULL);
 	}
 	pthread_exit(NULL);
+	
 }//end main
