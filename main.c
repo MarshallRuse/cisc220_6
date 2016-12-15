@@ -68,21 +68,23 @@ void* draw(void* carNum){
 
 }// end draw
 int main(){
+	
+	pthread_t threads[5];
 	int rc;
+	rc = pthread_create(threads+0,NULL,draw,(void *) 0);
 
-	pthread_t AIThreads[5];
-	for (int i = 2; i <=5; i++ ){
-
-		rc = pthread_create(AIThreads + i, NULL, raceCar, (void*) i); //returns 0 on success
-		if (rc){ //if not zero
-					printf("ERROR; return code from pthread_create() is %d\n", rc);
-					exit(-1);
-				}
+	for(int i = 1; i <=6; i++) {
+			rc = pthread_create(threads+i,NULL,raceCar,(void *) i);
+		}
+			rc= pthread_create(threads+i,NULL,userCar,(void *) i );
+			
+	if (rc) {
+		printf("ERROR; return code from pthread_create() is %d\n", rc);
+		exit(-1);
 	}
 	/* wait for all threads to complete */
 	for (int i = 0; i <= 5; i++){
 		pthread_join(AIThreads[i], NULL);
 	}
 	pthread_exit(NULL);
-	
 }//end main
