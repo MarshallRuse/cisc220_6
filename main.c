@@ -5,10 +5,9 @@
 #include "racingarena.h"
 
 
-void* raceCar(void* carNum){
+void* raceCar(void* carPosition){
 
-	int* carPos = malloc(sizeof(int));
-	*carPos = 0;
+	int* carPos = ((int *)carPosition);
 	int position = 0;
 
 	while (position != 40){
@@ -21,6 +20,18 @@ void* raceCar(void* carNum){
 	pthread_exit(NULL);
 }//end raceCar
 
+void* userCar(void* carPosition){
+	int *carPos=((int *)carPosition);
+	int i;
+	for(i=0; i<42; i++){
+		char c = fgetc(stdin);
+		if (c == '\n'){
+			++*(int*)carPos;
+		}
+	}
+	free(carPos);
+	pthread_exit(NULL);
+}//end userCar
 
 void drawLane(int position, int lane){
 	for (int i = 0; i < position; i++)
@@ -73,5 +84,5 @@ int main(){
 		pthread_join(AIThreads[i], NULL);
 	}
 	pthread_exit(NULL);
-
+	
 }//end main
